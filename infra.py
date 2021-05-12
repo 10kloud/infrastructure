@@ -1,8 +1,9 @@
 from pathlib import Path
-import os, subprocess
+import os
+import subprocess
+
 
 class Infrastructure:
-
     def find_templates_dirs(self):
         """ Iterate templates directory to find troposphere scripts """
         paths = list()
@@ -20,8 +21,7 @@ class Infrastructure:
         for template in templates:
             # Run scripts to generate cloudformation templates
             process = subprocess.Popen(
-                ["python", f"{template}/template.py"],
-                stdout=subprocess.PIPE
+                ["python", f"{template}/template.py"], stdout=subprocess.PIPE
             )
 
             # Read the standard output of the files
@@ -47,4 +47,3 @@ class Infrastructure:
 
         with open("cloudformation.yml", "w") as manifest:
             manifest.write("".join(partials))
-
