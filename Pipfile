@@ -11,6 +11,7 @@ black = "==20.8b1"
 flake8 = "*"
 neovim = "*"
 jedi-language-server = "*"
+isort = "*"
 
 [requires]
 python_version = "3.9"
