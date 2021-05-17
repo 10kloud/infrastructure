@@ -9,11 +9,11 @@ from aws_cdk import core as cdk
 # being updated to use `cdk`.  You may delete this import if you don't need it.
 from aws_cdk import core
 
-from infrastructure.infrastructure_stack import InfrastructureStack
+from iot.iot_stack import IoTStack
 
 
 app = core.App()
-InfrastructureStack(app, "InfrastructureStack",
+IoTStack(app, "IoTStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.

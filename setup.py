@@ -15,7 +15,7 @@ setuptools.setup(
 
     author="author",
 
-    package_dir={"": "infrastructure"},
+    package_dir={"": "iot"},
     packages=setuptools.find_packages(where="infrastructure"),
 
     install_requires=[
