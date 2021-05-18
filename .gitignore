@@ -171,6 +171,7 @@ Thumbs.db
 [._]s[a-rt-v][a-z]
 [._]ss[a-gi-z]
 [._]sw[a-p]
+.vim
 
 # Session
 Session.vim
