@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+infrastructure = {editable = true, file = "file:///home/federico/dev/aws/10kcloud/infrastructure"}
+
+[dev-packages]
+neovim = "*"
+
+[requires]
+python_version = "3.9"
