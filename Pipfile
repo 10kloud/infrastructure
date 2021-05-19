@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-infrastructure = {editable = true, file = "file:///home/federico/dev/aws/10kcloud/infrastructure"}
+infrastructure = {editable = true, path = "."}
 
 [dev-packages]
 neovim = "*"

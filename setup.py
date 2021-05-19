@@ -9,18 +9,18 @@ setuptools.setup(
     name="infrastructure",
     version="0.0.1",
 
-    description="An empty CDK Python app",
+    description="AWS infrastructure for SiouxSilos project",
     long_description=long_description,
     long_description_content_type="text/markdown",
 
-    author="author",
+    author="10kloud",
 
     package_dir={"": "stacks"},
     packages=setuptools.find_packages(where="infrastructure"),
 
     install_requires=[
-        "aws-cdk.core==1.104.0",
-        "aws-cdk.aws-ec2==1.104.0"
+        "aws-cdk.core==1.105.0",
+        "aws-cdk.aws-ec2==1.105.0"
     ],
 
     python_requires=">=3.6",
