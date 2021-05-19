@@ -9,6 +9,7 @@ __pycache__
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+cdk.context.json
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,visualstudio,visualstudiocode,vim
