@@ -4,7 +4,7 @@ import os
 from aws_cdk import core as cdk
 import yaml
 
-from stacks.vpc import VpcStack
+from stacks import VpcStack
 
 
 def load_settings():

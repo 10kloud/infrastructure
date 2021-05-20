@@ -15,7 +15,7 @@ setuptools.setup(
 
     author="10kloud",
 
-    package_dir={"": "stacks"},
+    package_dir={"": "stacks", "models": "models"},
     packages=setuptools.find_packages(where="infrastructure"),
 
     install_requires=[
