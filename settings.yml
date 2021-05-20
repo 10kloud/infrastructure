@@ -1,0 +1,13 @@
+vpc:
+  id: "clod2021-g5pw"
+  name: "clod2021-g5pw"
+  cidr: "10.0.0.0/16"
+  availability_zones: 3
+  nat_gateways: 1
+  subnets:
+    - name: "common"
+      type: "public"
+      cidr_mask: 24
+    - name: "database"
+      type: "isolated"
+      cidr_mask: 24

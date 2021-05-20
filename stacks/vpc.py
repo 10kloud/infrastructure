@@ -3,49 +3,73 @@ from aws_cdk import (
     aws_ec2 as ec2
 )
 
+class VpcModel:
+
+    def __init__(self, settings: dict):
+        self.id = settings.get("id", "")
+        self.cidr = settings.get("cidr", "")
+
+        subnet_configuration = settings.get("subnets", [])
+        self.subnets = self._configure_subnets(subnet_configuration)
+
+        self.availability_zones = settings.get("availability_zones", 2)
+        self.nat_gateways = settings.get("nat_gateways", 1)
+
+
+    def _subnet_type_from_string(self, subnet_type: str) -> ec2.SubnetType:
+        if subnet_type.lower() == "private":
+            return ec2.SubnetType.PRIVATE
+
+        elif subnet_type.lower() == "isolated":
+            return ec2.SubnetType.ISOLATED
+
+        return ec2.SubnetType.PUBLIC
+
+
+    def _configure_subnets(self, subnet_configuration: list) -> list:
+        subnets = list()
+
+        for conf in subnet_configuration:
+            subnet_type = conf.get("type", "")
+
+            subnets.append(
+                ec2.SubnetConfiguration(
+                    name = conf.get("name"),
+                    cidr_mask = conf.get("cidr_mask"),
+                    reserved = False,
+                    subnet_type = self._subnet_type_from_string(subnet_type)
+                )
+            )
+
+        return subnets
+
 class VpcStack(cdk.Stack):
 
-    def __init__(self, scope: cdk.Construct, construct_id: str, **kwargs) -> None:
+    def __init__(self, scope: cdk.Construct, construct_id: str, settings: dict = {}, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
+
+        vpc_settings = settings.get("vpc", {})
+        model = VpcModel(vpc_settings)
 
         # Virtual Private Cloud to contain every resource needed for the project
         # DOCS: https://docs.aws.amazon.com/cdk/api/latest/python/aws_cdk.aws_ec2/Vpc.html
         self.vpc = ec2.Vpc(
             self,
-            id="clod2021-group5",
-            cidr="10.0.0.0/16",
+            id = model.id,
+            # Network address using CIDR notation
+            cidr = model.cidr,
             # Maximum number of Availability Zones to use in this region
-            max_azs=2,
+            max_azs = model.availability_zones,
             # Subnets for each AZ
             # Each entry is a subnet group that contains a subnet for each AZ
-            subnet_configuration=[
-                # Public subnet for the EC2 instances
-                # in which the core of the system is located
-                ec2.SubnetConfiguration(
-                    name="clod2021-group5-system-core",
-                    cidr_mask=24,
-                    reserved=False,
-                    subnet_type=ec2.SubnetType.PUBLIC
-                ),
-                # Isolated subnet for the databases
-                ec2.SubnetConfiguration(
-                    name="clod2021-group5-database",
-                    cidr_mask=24,
-                    reserved=False,
-                    subnet_type=ec2.SubnetType.ISOLATED
-                )
-            ],
+            subnet_configuration = model.subnets,
 
             # Expose public networks behind a NAT system
-            nat_gateways=1,
+            nat_gateways = model.nat_gateways,
             nat_gateway_provider=ec2.NatProvider.gateway(),
             # Which subnets need to have a NAT gateway
             # Default: All public networks
             # nat_gateway_subnets=ec2.SubnetSelection()
-
-            # Instances in this VPC will acquire a public DNS hostname
-            enable_dns_hostnames=True,
-            enable_dns_support=True,
         )
 
         cdk.CfnOutput(
