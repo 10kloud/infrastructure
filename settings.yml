@@ -11,3 +11,14 @@ vpc:
     - name: "database"
       type: "isolated"
       cidr_mask: 24
+
+data:
+  postgres:
+    id: "clod2021-g5pw-pg"
+    version: "13.0"
+    database:
+      name: "siouxsilos"
+    instance:
+      class: t2
+      size: micro
+    storage: 40

@@ -5,6 +5,7 @@ from aws_cdk import core as cdk
 import yaml
 
 from stacks import VpcStack
+from stacks import DataStack
 
 
 def load_settings():
@@ -27,6 +28,14 @@ vpc_stack = VpcStack(
     construct_id="group5-vpc",
     env=aws_env,
     settings=settings
+)
+
+data_stack = DataStack(
+    scope=app,
+    construct_id="group5-data",
+    settings=settings,
+    vpc=vpc_stack.vpc,
+    env=aws_env,
 )
 
 app.synth()
