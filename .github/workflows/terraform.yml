@@ -30,6 +30,9 @@ jobs:
 
       - name: Terraform Plan
         id: plan
+        env:
+          TF_VAR_PSQL_PASSWORD: "${{ secrets.PSQL_PASSWORD }}"
+          TF_VAR_PSQL_USERNAME: "${{ secrets.PSQL_USERNAME }}"
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color -var-file=values.tfvars
         continue-on-error: true
@@ -67,4 +70,7 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        env:
+          TF_VAR_PSQL_PASSWORD: "${{ secrets.PSQL_PASSWORD }}"
+          TF_VAR_PSQL_USERNAME: "${{ secrets.PSQL_USERNAME }}"
         run: terraform apply -auto-approve -var-file=values.tfvars
