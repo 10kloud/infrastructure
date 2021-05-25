@@ -1,15 +1,25 @@
 terraform {
+  required_version = "~> 0.14"
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "3.42.0"
     }
   }
+
+  backend "remote" {
+    organization = "10kloud"
+
+    workspaces {
+      name = "siouxsilos"
+    }
+  }
 }
 
 # Configure the AWS Provider
 provider "aws" {
-  region = var.aws_region
+  region = "eu-central-1"
 }
 
 module "network" {
