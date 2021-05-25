@@ -39,8 +39,8 @@ module "database" {
 
   subnet_ids = module.network.vpc_intra_subnets
 
-  db_username = var.psql_username
-  db_password = var.psql_password
+  db_username = var.PSQL_USERNAME
+  db_password = var.PSQL_PASSWORD
 
   timestream_db_name    = var.timestream_db_name
   timestream_table_name = var.timestream_table_name

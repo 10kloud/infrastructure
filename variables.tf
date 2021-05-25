@@ -28,12 +28,12 @@ variable "vpc_intra_subnets" {
   default     = ["10.0.200.0/24", "10.0.201.0/24"]
 }
 
-variable "psql_username" {
+variable "PSQL_USERNAME" {
   description = "Postgres master username"
   type        = string
 }
 
-variable "psql_password" {
+variable "PSQL_PASSWORD" {
   description = "Postgres master password"
   type        = string
 }
