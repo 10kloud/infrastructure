@@ -14,3 +14,14 @@ module "postgresql" {
 
   tags = var.tags
 }
+
+module "timestream_db" {
+  source = "./timestream"
+
+  database_name = var.timestream_db_name
+  table_name    = var.timestream_table_name
+
+  retention_properties = var.retention_properties
+
+  tags = var.tags
+}
