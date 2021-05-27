@@ -61,3 +61,12 @@ module "database" {
 
   tags = var.tags
 }
+
+module "notifications" {
+  source = "./modules/notifications"
+
+  topic_name   = "SiouxSilosAlerts"
+  display_name = "SiouxSilos Alerts"
+
+  tags = var.tags
+}
